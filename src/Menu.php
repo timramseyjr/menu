@@ -681,12 +681,12 @@ class Menu implements Item, Countable, HasHtmlAttributes, HasParentAttributes, I
         if ($this->prepend instanceof Item && $this->prepend->isActive()) {
             $this->prepend = $this->renderActiveClassOnLink($this->prepend);
         }
+        
+        if (! empty($this->wrap)) {
+            $wrappedContents = Tag::make($this->wrap[0], new Attributes($this->wrap[1]))->withContents($wrappedContents);
+        }
 
         $menu = $this->renderPrepend().$wrappedContents.$this->renderAppend();
-
-        if (! empty($this->wrap)) {
-            return Tag::make($this->wrap[0], new Attributes($this->wrap[1]))->withContents($menu);
-        }
 
         return $menu;
     }
